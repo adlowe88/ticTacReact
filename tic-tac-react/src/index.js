@@ -14,6 +14,12 @@ class Board extends PureComponent {
   handleClick(i) {
     //Make a copy of the squares array
     const squares = this.state.squares.slice();
+
+    //If there is a winner, or the square is not empty
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+
     squares[i] = this.state.xIsNext ? "X" : "O";
     //Render the squares with the X
     this.setState({
@@ -32,7 +38,13 @@ class Board extends PureComponent {
   }
 
   render() {
-    const status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+    const winner = calculateWinner(this.state.squares);
+    let status;
+    if (winner) {
+      status = "Winner" + winner;
+    } else {
+      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+    };
 
     return (
       <div>
@@ -85,6 +97,30 @@ class Game extends PureComponent {
       </div>
     );
   }
+}
+
+function calculateWinner (squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  for (let i = 0; i < lines.length; i++) {
+    //Deconstructed -> for each of the lines[row/column/diagonal], compare the indicies within
+    const [a, b, c] = lines[i];
+    //check if first index in line/row/column is not empty, then check corresponding
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      //return X or O
+      return squares[a];
+    };
+  };
+  return null;
 }
 
 ReactDOM.render(
