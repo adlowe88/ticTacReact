@@ -17,7 +17,7 @@ class Board extends PureComponent {
     squares[i] = this.state.xIsNext ? "X" : "O";
     //Render the squares with the X
     this.setState({
-      squares
+      squares,
       xIsNext: !this.state.xIsNext,
     });
   }
