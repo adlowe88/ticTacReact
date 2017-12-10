@@ -8,7 +8,8 @@ class Board extends PureComponent {
     this.state = {
       squares: Array(9).fill(null),
       xIsNext: true,
-    }
+    };
+    // this._resetBoard = this._resetBoard.bind(this);
   }
 
   handleClick(i) {
@@ -28,7 +29,13 @@ class Board extends PureComponent {
     });
   }
 
-  renderSquare( i ) {
+  // _resetBoard () {
+  //   this.setState({
+  //     squares: Array(9).fill(null),
+  //   });
+  // }
+
+  renderSquare(i) {
     return (
       <Square
         value = { this.state.squares[i] }
@@ -68,10 +75,13 @@ class Board extends PureComponent {
           {this.renderSquare(8)}
         </div>
 
+        <button className = "reset-button" onClick = {() => this.setState({squares: Array.fill(null)})}> Reset </button>
+
       </div>
     );
   }
 }
+
 
 
 function Square (props) {
