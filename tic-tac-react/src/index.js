@@ -2,6 +2,35 @@ import React, { PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+
+
+
+class Game extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      history: [{
+        squares: Array(9).fill(null),
+      }],
+      xIsNext: true,
+    };
+  }
+  render() {
+    return (
+      <div className = "game">
+        <div className = "game-board">
+        <Board />
+        </div>
+
+        <div className = "game-info">
+          <div>{}</div>
+          <ol>{}</ol>
+        </div>
+      </div>
+    );
+  }
+}
+
 class Board extends PureComponent {
   constructor (props) {
     super(props);
@@ -75,13 +104,12 @@ class Board extends PureComponent {
           {this.renderSquare(8)}
         </div>
 
-        <button className = "reset-button" onClick = {() => this.setState({squares: Array.fill(null)})}> Reset </button>
+        <button className = "reset-button" onClick = {() => this.setState({squares: Array(9).fill(null)})}> Reset </button>
 
       </div>
     );
   }
 }
-
 
 
 function Square (props) {
@@ -90,23 +118,6 @@ function Square (props) {
       {props.value}
     </button>
   );
-}
-
-class Game extends PureComponent {
-  render() {
-    return (
-      <div className = "game">
-        <div className = "game-board">
-        <Board />
-        </div>
-
-        <div className = "game-info">
-          <div>{}</div>
-          <ol>{}</ol>
-        </div>
-      </div>
-    );
-  }
 }
 
 function calculateWinner (squares) {
